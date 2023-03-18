@@ -1,13 +1,39 @@
+import java.io.File;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.InvalidObjectException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Random;
 import java.util.Scanner;
 
+
 public class SuperClase_main 
 {	
-	public static void main(String[] args) 
+	public static void main(String[] args)  
 	{
 		// Crear nuestra base de datos - nombres
 		String[] names = {"Shai Hulud", "Muad'Did", "Ana", "Juan", "Julio", "Ghanima", 
 				"Santiago", "Diana", "Georgina", "Leto"};
+		
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("Ingrese su nombre: ");
+		String str = scan.nextLine();
+		
+		File file = new File(str);
+		
+		try
+		{
+			write();
+			read();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 		
 		// Contadores
 		int att1 = 0;
@@ -46,13 +72,7 @@ public class SuperClase_main
 		}
 		
 		int randomNumero = random.nextInt(10);
-		
-	/*  actores[randomNumero].setHasGlasses(true);
-		actores[randomNumero].setIsMale(true);
-		actores[randomNumero].setIsFemale(true);
-		actores[randomNumero].setHasSuperpower(true);
-	*/
-		
+				
 		for(int i = 0; i < 10; i++)
 		{
 			System.out.println(actores[i].getName() + ": " + "¿usa lentes?: " + actores[i].getHasGlasses() + ", " + 
@@ -71,7 +91,6 @@ public class SuperClase_main
 		System.out.println(att3 + " personajes son femeninos");
 		System.out.println(att4 + " personajes tienen superpoderes\n");
 		
-		Scanner scan = new Scanner(System.in);
 		int i = 0;
 		int j = 0;
 		for(i = 0; i < 3; i++)
@@ -120,18 +139,35 @@ public class SuperClase_main
 			}
 		}
 		
-		
 		System.out.println("\n¿Qué número de persona crees que es? (escoga una ocpión del 0 al 9)");
 		int numPersona = Integer.parseInt(scan.nextLine());
+		int puntaje = 0;
 		if(numPersona == randomNumero)
 		{
 			System.out.println("¡Felicidades! La persona a adivinar era: " + actores[randomNumero].getName());
+			puntaje++;
 		}
 		else
 		{
 			System.out.println("¡Tú puedes lograrlo! La persona a adivinar era: " + actores[randomNumero].getName());
 		}
 		
+		
+		
+		public static void write() throws IOExeption
+		{
+			FileWriter fileWriter = new FileWriter(file);
+			PrintWriter printWriter = new PrintWriter(fileWriter);
+			
+			printWriter.print("Haz ganado " + puntaje.parseString + "veces.");
+			printWriter.close();
+		}
+		
+		public static void read() throws IOExeption
+		{
+			Path fileName = Path.of(file.getPath());
+			String str = Files.readString(fileName);
+			System.out.println(str);
+		}
 	}
-
 }
